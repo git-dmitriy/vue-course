@@ -22,7 +22,7 @@
       </div>
 
       <ul class="list" v-if="items.length">
-        <li class="list-item" v-for="(item, idx) in items" @click.left="items.splice(idx,1)" :key="item">
+        <li class="list-item" v-for="(item, idx) in items" @click.left="remove(idx), log(item)" :key="item">
           <strong>{{item}}</strong>&nbsp;
           <input type="text" @click.prevent.stop>
         </li>

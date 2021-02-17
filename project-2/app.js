@@ -25,5 +25,11 @@ Vue.createApp({
       this.items.unshift(this.$refs.myInput.value);
       this.$refs.myInput.value = "";
     },
+    remove(idx) {
+      this.items.splice(idx, 1);
+    },
+    log(item) {
+      console.log("Log item:", item);
+    },
   },
 }).mount("#app");
