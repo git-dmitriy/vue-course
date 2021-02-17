@@ -12,10 +12,24 @@
   <div class="container pt-5" id="app" v-cloak>
     <div class="card center">
       <div v-html="html"></div>
-      <h1>{{ title }}</h1>
+      <!-- <h1>{{ title }}</h1>
       <h1 v-once> {{title}}</h1>
 
-      <button class="btn" @click="title = 'another title';">Change title</button>
+      <button class="btn" @click="title = 'another title';">Change title</button> -->
+
+      <ul class="list" v-if="items.length">
+        <li class="list-item" v-for="(item, idx) in items" @click="items.splice(idx,1)" :key="item">
+          <strong>{{item}}</strong>&nbsp;
+          <input type="text" @click.prevent.stop>
+        </li>
+
+        <!-- <li class="list-item" v-for="(value, key) in person">
+          <strong>{{key}}:</strong> {{value}}
+        </li> -->
+
+      </ul>
+      <div v-else>Elements not found</div>
+      <div v-show="items.length === 0">Elements not found</div>
     </div>
   </div>
 
