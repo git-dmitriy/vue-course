@@ -18,7 +18,7 @@
       <button class="btn" @click="title = 'another title';">Change title</button> -->
 
       <ul class="list" v-if="items.length">
-        <li class="list-item" v-for="(item, idx) in items" @click="items.splice(idx,1)" :key="item">
+        <li class="list-item" v-for="(item, idx) in eventItems" @click="items.splice(idx,1)" :key="item">
           <strong>{{item}}</strong>&nbsp;
           <input type="text" @click.prevent.stop>
         </li>
