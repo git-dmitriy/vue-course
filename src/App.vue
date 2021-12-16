@@ -1,26 +1,56 @@
 <template>
-  <div>
-    <span>{{ count }}</span>
-  </div>
-  <p>Hello world</p>
+  <div class="app">
+    <form @submit.prevent>
+      <h2>Создать пост</h2>
+      <input
+        type="text"
+        name=""
+        id=""
+        class="input-field"
+        v-bind:value="title"
+        @input="title = $event.target.value"
+        placeholder="Название"
+      />
+      <input
+        type="text"
+        name=""
+        id=""
+        @input="body = $event.target.value"
+        class="input-field"
+        v-bind:value="body"
+        placeholder="Содержание"
+      />
+      <div class="btn-container">
+        <button @click="createPost" class="btn">Добавить</button>
+      </div>
+    </form>
 
-  <button @click="increment">Increment</button>
-  <button @click="decrement">Decrement</button>
+    <div class="post" v-for="post in posts" v-bind:key="post.id">
+      <p><strong>Название:</strong>{{ post.title }}</p>
+      <p><strong>Описание:</strong>{{ post.body }}</p>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      count: 0,
+      posts: [
+        { id: 1, title: 'Заголовок 1', body: 'Содержание публикации' },
+        { id: 2, title: 'Заголовок 2', body: 'Содержание публикации' },
+        { id: 3, title: 'Заголовок 3', body: 'Содержание публикации' },
+      ],
+      title: '',
+      body: '',
     };
   },
   methods: {
-    increment() {
-      this.count += 1;
-    },
-    decrement() {
-      this.count -= 1;
+    createPost() {
+      const newPost = { id: Date.now(), title: this.title, body: this.body };
+      this.posts.push(newPost);
+      this.title = '';
+      this.body = '';
     },
   },
 };
