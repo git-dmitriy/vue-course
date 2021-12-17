@@ -14,7 +14,7 @@
       v-model="post.body"
     />
     <div class="btn-container">
-      <button class="btn">Добавить</button>
+      <button @click="create" class="btn">Добавить</button>
     </div>
   </form>
 </template>
@@ -28,6 +28,16 @@ export default {
         body: '',
       },
     };
+  },
+  methods: {
+    create() {
+      this.post.id = Date.now();
+      this.$emit('create', this.post);
+      this.post = {
+        title: '',
+        body: '',
+      };
+    },
   },
 };
 </script>
