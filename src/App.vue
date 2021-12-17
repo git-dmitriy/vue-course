@@ -1,6 +1,10 @@
 <template>
   <div class="app">
-    <post-form @create="createPost" />
+    <h1></h1>
+    <ui-button @click="openModal">Добавить публикацию</ui-button>
+    <ui-modal v-model:show="showModal">
+      <post-form @create="createPost" />
+    </ui-modal>
     <post-list :posts="posts" @remove="removePost" />
   </div>
 </template>
@@ -22,15 +26,21 @@ export default {
         { id: 2, title: 'Заголовок 2', body: 'Содержание публикации' },
         { id: 3, title: 'Заголовок 3', body: 'Содержание публикации' },
       ],
+      showModal: false,
     };
   },
   methods: {
     createPost(post) {
       console.log('post item:', post);
       this.posts.push(post);
+      this.showModal = false;
     },
     removePost(post) {
       this.posts = this.posts.filter((p) => p.id !== post.id);
+    },
+    openModal() {
+      this.showModal = true;
+      console.log('this.showModal:', this.showModal);
     },
   },
 };

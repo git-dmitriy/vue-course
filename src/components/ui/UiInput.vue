@@ -3,6 +3,7 @@
     <input
       :value="modelValue"
       @input="updateInput"
+      :placeholder="placeholder"
       class="input-field"
       type="text"
     />
@@ -14,6 +15,7 @@ export default {
   name: 'ui-input',
   props: {
     modelValue: [String, Number],
+    placeholder: [String],
   },
   methods: {
     updateInput(event) {
@@ -26,7 +28,6 @@ export default {
 <style scoped>
 .input-field {
   display: block;
-  width: 100%;
   padding: 10px;
   border: 1px solid teal;
   margin-bottom: 10px;

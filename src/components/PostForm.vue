@@ -1,10 +1,10 @@
 <template>
-  <form @submit.prevent>
+  <form class="form" @submit.prevent>
     <h2>Создать пост</h2>
-    <ui-input v-model="post.title" placeholder="Название" />
-    <ui-input placeholder="Содержание" v-model="post.body" />
+    <ui-input v-model="post.title" :placeholder="'Название'" />
+    <ui-input :placeholder="'Содержание'" v-model="post.body" />
     <div class="btn-container">
-      <ui-button @click="create">компонент кнопки</ui-button>
+      <ui-button @click="create">Создать</ui-button>
     </div>
   </form>
 </template>
@@ -33,8 +33,12 @@ export default {
 </script>
 
 <style scoped>
-form {
+.form {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-container {
