@@ -4,16 +4,14 @@
     <input
       type="text"
       class="input-field"
-      v-bind:value="post.title"
-      @input="post.title = $event.target.value"
+      v-model="post.title"
       placeholder="Название"
     />
     <input
       type="text"
       class="input-field"
       placeholder="Содержание"
-      v-bind:value="post.body"
-      @input="post.body = $event.target.value"
+      v-model="post.body"
     />
     <div class="btn-container">
       <button class="btn">Добавить</button>
