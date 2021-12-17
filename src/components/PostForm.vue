@@ -14,13 +14,17 @@
       v-model="post.body"
     />
     <div class="btn-container">
-      <button @click="create" class="btn">Добавить</button>
+      <ui-button @click="create">компонент кнопки</ui-button>
     </div>
   </form>
 </template>
 
 <script>
+import UiButton from './ui/UiButton.vue';
+
 export default {
+  components: { UiButton },
+
   data() {
     return {
       post: {
