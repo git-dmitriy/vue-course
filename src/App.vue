@@ -2,6 +2,7 @@
   <div class="app">
     <h1></h1>
     <ui-button @click="openModal">Добавить публикацию</ui-button>
+
     <ui-modal v-model:show="showModal">
       <post-form @create="createPost" />
     </ui-modal>
@@ -12,6 +13,7 @@
 <script>
 import PostForm from '@/components/PostForm';
 import PostList from '@/components/PostList';
+import axios from 'axios';
 
 export default {
   components: {
@@ -21,11 +23,7 @@ export default {
 
   data() {
     return {
-      posts: [
-        { id: 1, title: 'Заголовок 1', body: 'Содержание публикации' },
-        { id: 2, title: 'Заголовок 2', body: 'Содержание публикации' },
-        { id: 3, title: 'Заголовок 3', body: 'Содержание публикации' },
-      ],
+      posts: [],
       showModal: false,
     };
   },
@@ -42,6 +40,23 @@ export default {
       this.showModal = true;
       console.log('this.showModal:', this.showModal);
     },
+    async fetchPosts() {
+      try {
+        setTimeout(async () => {
+          const response = await axios.get(
+            'https://jsonplaceholder.typicode.com/posts?_limit=10'
+          );
+          this.posts = response.data;
+          console.log('response:', response);
+        }, 1000);
+      } catch (error) {
+        console.log("cant't fetch:", error);
+      }
+    },
+  },
+
+  mounted() {
+    this.fetchPosts();
   },
 };
 </script>
