@@ -6,8 +6,7 @@
 
 <script>
 export default {
-  props: {},
-  models: {},
+  name: 'ui-button',
 };
 </script>
 
