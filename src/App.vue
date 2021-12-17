@@ -6,7 +6,8 @@
     <ui-modal v-model:show="showModal">
       <post-form @create="createPost" />
     </ui-modal>
-    <post-list :posts="posts" @remove="removePost" />
+    <post-list :posts="posts" @remove="removePost" v-if="!isPostsLoading" />
+    <div v-else>Идёт загрузка...</div>
   </div>
 </template>
 
@@ -25,6 +26,7 @@ export default {
     return {
       posts: [],
       showModal: false,
+      isPostsLoading: false,
     };
   },
   methods: {
@@ -42,15 +44,16 @@ export default {
     },
     async fetchPosts() {
       try {
-        setTimeout(async () => {
-          const response = await axios.get(
-            'https://jsonplaceholder.typicode.com/posts?_limit=10'
-          );
-          this.posts = response.data;
-          console.log('response:', response);
-        }, 1000);
+        this.isPostsLoading = true;
+        const response = await axios.get(
+          'https://jsonplaceholder.typicode.com/posts?_limit=10'
+        );
+        this.posts = response.data;
+        console.log('response:', response);
       } catch (error) {
         console.log("cant't fetch:", error);
+      } finally {
+        this.isPostsLoading = false;
       }
     },
   },
