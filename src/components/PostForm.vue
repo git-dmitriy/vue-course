@@ -1,18 +1,8 @@
 <template>
   <form @submit.prevent>
     <h2>Создать пост</h2>
-    <input
-      type="text"
-      class="input-field"
-      v-model="post.title"
-      placeholder="Название"
-    />
-    <input
-      type="text"
-      class="input-field"
-      placeholder="Содержание"
-      v-model="post.body"
-    />
+    <ui-input v-model="post.title" placeholder="Название" />
+    <ui-input placeholder="Содержание" v-model="post.body" />
     <div class="btn-container">
       <ui-button @click="create">компонент кнопки</ui-button>
     </div>
@@ -45,14 +35,6 @@ export default {
 <style scoped>
 form {
   margin-bottom: 20px;
-}
-
-.input-field {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  border: 1px solid teal;
-  margin-bottom: 10px;
 }
 
 .btn-container {

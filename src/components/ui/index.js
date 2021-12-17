@@ -1,3 +1,4 @@
 import UiButton from '@/components/ui/UiButton';
+import UiInput from '@/components/ui/UiInput';
 
-export default [UiButton];
+export default [UiButton, UiInput];
