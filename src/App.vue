@@ -3,11 +3,12 @@
     <h1></h1>
     <div class="app-header">
       <ui-button @click="openModal">Добавить публикацию</ui-button>
+      <ui-input v-model="searchQuery" :placeholder="'Найти публикацию'" />
       <ui-select v-model="selectedSort" :options="sortOptions" />
     </div>
 
     <post-list
-      :posts="sortedPosts"
+      :posts="sortedAndSearchPosts"
       @remove="removePost"
       v-if="!isPostsLoading"
     />
@@ -36,6 +37,7 @@ export default {
       showModal: false,
       isPostsLoading: false,
       selectedSort: '',
+      searchQuery: '',
       sortOptions: [
         { value: 'title', name: 'По названию' },
         { value: 'body', name: 'По описанию' },
@@ -79,6 +81,11 @@ export default {
     sortedPosts() {
       return [...this.posts].sort((a, b) =>
         a[this.selectedSort]?.localeCompare(b[this.selectedSort])
+      );
+    },
+    sortedAndSearchPosts() {
+      return this.sortedPosts.filter((post) =>
+        post.title.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     },
   },
