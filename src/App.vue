@@ -17,13 +17,9 @@
     <ui-modal v-model:show="showModal">
       <post-form @create="createPost" />
     </ui-modal>
-  </div>
 
-  <ui-pagination
-    @clickHandler="changePage"
-    :totalPages="totalPages"
-    :currentPage="page"
-  />
+    <div class="observer" ref="observer"></div>
+  </div>
 </template>
 
 <script>
@@ -66,13 +62,8 @@ export default {
       this.showModal = true;
       console.log('this.showModal:', this.showModal);
     },
-    changePage(pageNumber) {
-      this.page = pageNumber;
-      this.fetchPosts();
-    },
     async fetchPosts() {
       try {
-        this.isPostsLoading = true;
         const response = await axios.get(
           'https://jsonplaceholder.typicode.com/posts',
           {
@@ -89,6 +80,27 @@ export default {
         console.log('response:', response);
       } catch (error) {
         console.log("cant't fetch:", error);
+      }
+    },
+    async loadMorePosts() {
+      try {
+        this.page += 1;
+        const response = await axios.get(
+          'https://jsonplaceholder.typicode.com/posts',
+          {
+            params: {
+              _page: this.page,
+              _limit: this.limit,
+            },
+          }
+        );
+        this.totalPages = Math.ceil(
+          response.headers['x-total-count'] / this.limit
+        );
+        this.posts = [...this.posts, ...response.data];
+        console.log('response:', response);
+      } catch (error) {
+        console.log("cant't fetch:", error);
       } finally {
         this.isPostsLoading = false;
       }
@@ -97,6 +109,21 @@ export default {
 
   mounted() {
     this.fetchPosts();
+
+    console.log('observer:', this.$refs.observer);
+    const options = {
+      rootMargin: '0px',
+      threshold: 1.0,
+    };
+    const callback = (entries, observer) => {
+      if (entries[0].isIntersecting && this.page < this.totalPages) {
+        this.loadMorePosts();
+        console.log('crossed');
+      }
+    };
+    const observer = new IntersectionObserver(callback, options);
+
+    observer.observe(this.$refs.observer);
   },
 
   computed: {
@@ -112,11 +139,7 @@ export default {
     },
   },
 
-  watch: {
-    page() {
-      this.fetchPosts();
-    },
-  },
+  watch: {},
 };
 </script>
 
@@ -129,5 +152,10 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.observer {
+  min-height: 100px;
+  background-color: teal;
 }
 </style>
