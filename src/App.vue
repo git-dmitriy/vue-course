@@ -3,11 +3,14 @@
     <h1></h1>
     <ui-button @click="openModal">Добавить публикацию</ui-button>
 
+    <ui-select v-model="selectedSort" :options="sortOptions"></ui-select>
+
+    <post-list :posts="posts" @remove="removePost" v-if="!isPostsLoading" />
+    <div v-else>Идёт загрузка...</div>
+
     <ui-modal v-model:show="showModal">
       <post-form @create="createPost" />
     </ui-modal>
-    <post-list :posts="posts" @remove="removePost" v-if="!isPostsLoading" />
-    <div v-else>Идёт загрузка...</div>
   </div>
 </template>
 
@@ -27,6 +30,11 @@ export default {
       posts: [],
       showModal: false,
       isPostsLoading: false,
+      selectedSort: '',
+      sortOptions: [
+        { value: 'title', name: 'По названию' },
+        { value: 'body', name: 'По описанию' },
+      ],
     };
   },
   methods: {
