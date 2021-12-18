@@ -18,6 +18,12 @@
       <post-form @create="createPost" />
     </ui-modal>
   </div>
+
+  <ui-pagination
+    @clickHandler="changePage"
+    :totalPages="totalPages"
+    :currentPage="page"
+  />
 </template>
 
 <script>
@@ -42,6 +48,9 @@ export default {
         { value: 'title', name: 'По названию' },
         { value: 'body', name: 'По описанию' },
       ],
+      page: 1,
+      limit: 10,
+      totalPages: 0,
     };
   },
   methods: {
@@ -57,11 +66,24 @@ export default {
       this.showModal = true;
       console.log('this.showModal:', this.showModal);
     },
+    changePage(pageNumber) {
+      this.page = pageNumber;
+      this.fetchPosts();
+    },
     async fetchPosts() {
       try {
         this.isPostsLoading = true;
         const response = await axios.get(
-          'https://jsonplaceholder.typicode.com/posts?_limit=10'
+          'https://jsonplaceholder.typicode.com/posts',
+          {
+            params: {
+              _page: this.page,
+              _limit: this.limit,
+            },
+          }
+        );
+        this.totalPages = Math.ceil(
+          response.headers['x-total-count'] / this.limit
         );
         this.posts = response.data;
         console.log('response:', response);
@@ -90,7 +112,11 @@ export default {
     },
   },
 
-  watch: {},
+  watch: {
+    page() {
+      this.fetchPosts();
+    },
+  },
 };
 </script>
 
