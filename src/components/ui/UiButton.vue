@@ -18,6 +18,5 @@ export default {
 .btn {
   border: 1px solid teal;
   padding: 10px 20px;
-  margin-left: auto;
 }
 </style>

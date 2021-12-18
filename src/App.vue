@@ -1,9 +1,10 @@
 <template>
   <div class="app">
     <h1></h1>
-    <ui-button @click="openModal">Добавить публикацию</ui-button>
-
-    <ui-select v-model="selectedSort" :options="sortOptions"></ui-select>
+    <div class="app-header">
+      <ui-button @click="openModal">Добавить публикацию</ui-button>
+      <ui-select v-model="selectedSort" :options="sortOptions" />
+    </div>
 
     <post-list
       :posts="sortedPosts"
@@ -89,5 +90,11 @@ export default {
 <style>
 .app {
   padding: 20px;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

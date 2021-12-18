@@ -30,6 +30,5 @@ export default {
   display: block;
   padding: 10px;
   border: 1px solid teal;
-  margin-bottom: 10px;
 }
 </style>
