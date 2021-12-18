@@ -5,7 +5,11 @@
 
     <ui-select v-model="selectedSort" :options="sortOptions"></ui-select>
 
-    <post-list :posts="posts" @remove="removePost" v-if="!isPostsLoading" />
+    <post-list
+      :posts="sortedPosts"
+      @remove="removePost"
+      v-if="!isPostsLoading"
+    />
     <div v-else>Идёт загрузка...</div>
 
     <ui-modal v-model:show="showModal">
@@ -69,11 +73,16 @@ export default {
   mounted() {
     this.fetchPosts();
   },
-  watch: {
-    selectedSort(newValue) {
-      this.posts.sort((a, b) => a[newValue]?.localeCompare(b[newValue]));
+
+  computed: {
+    sortedPosts() {
+      return [...this.posts].sort((a, b) =>
+        a[this.selectedSort]?.localeCompare(b[this.selectedSort])
+      );
     },
   },
+
+  watch: {},
 };
 </script>
 
