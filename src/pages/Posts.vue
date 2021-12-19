@@ -18,7 +18,7 @@
       <post-form @create="createPost" />
     </ui-modal>
 
-    <div class="observer" ref="observer"></div>
+    <div class="observer" v-intersection="loadMorePosts" />
   </div>
 </template>
 
@@ -110,20 +110,20 @@ export default {
   mounted() {
     this.fetchPosts();
 
-    console.log('observer:', this.$refs.observer);
-    const options = {
-      rootMargin: '0px',
-      threshold: 1.0,
-    };
-    const callback = (entries, observer) => {
-      if (entries[0].isIntersecting && this.page < this.totalPages) {
-        this.loadMorePosts();
-        console.log('crossed');
-      }
-    };
-    const observer = new IntersectionObserver(callback, options);
+    // console.log('observer:', this.$refs.observer);
+    // const options = {
+    //   rootMargin: '0px',
+    //   threshold: 1.0,
+    // };
+    // const callback = (entries, observer) => {
+    //   if (entries[0].isIntersecting && this.page < this.totalPages) {
+    //     this.loadMorePosts();
+    //     console.log('crossed');
+    //   }
+    // };
+    // const observer = new IntersectionObserver(callback, options);
 
-    observer.observe(this.$refs.observer);
+    // observer.observe(this.$refs.observer);
   },
 
   computed: {
