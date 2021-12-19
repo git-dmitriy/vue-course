@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <input
-      :value="modelValue"
-      @input="updateInput"
-      :placeholder="placeholder"
-      class="input-field"
-      type="text"
-    />
-  </div>
+  <input
+    :value="modelValue"
+    @input="updateInput"
+    :placeholder="placeholder"
+    class="input-field"
+    type="text"
+  />
 </template>
 
 <script>
