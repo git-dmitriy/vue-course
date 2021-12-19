@@ -1,7 +1,7 @@
 <template>
   <form class="form" @submit.prevent>
     <h2>Создать пост</h2>
-    <ui-input v-model="post.title" :placeholder="'Название'" />
+    <ui-input v-focus v-model="post.title" :placeholder="'Название'" />
     <ui-input :placeholder="'Содержание'" v-model="post.body" />
     <div class="btn-container">
       <ui-button @click="create">Создать</ui-button>
