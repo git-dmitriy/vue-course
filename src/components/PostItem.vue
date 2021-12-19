@@ -5,6 +5,7 @@
       <p><strong>Название: </strong>{{ post.title }}</p>
       <p><strong>Описание: </strong>{{ post.body }}</p>
     </div>
+    <ui-button @click="$router.push(`/posts/${post.id}`)">Открыть</ui-button>
     <ui-button @click="$emit('remove', post)">Удалить</ui-button>
   </div>
 </template>
