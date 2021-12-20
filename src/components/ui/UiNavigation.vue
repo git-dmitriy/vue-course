@@ -3,6 +3,7 @@
     <router-link class="navigation-link" to="/">Главная</router-link>
     <router-link class="navigation-link" to="/posts">Публикации</router-link>
     <router-link class="navigation-link" to="/about">О приложении</router-link>
+    <router-link class="navigation-link" to="/store">Хранилище</router-link>
   </nav>
 </template>
 
